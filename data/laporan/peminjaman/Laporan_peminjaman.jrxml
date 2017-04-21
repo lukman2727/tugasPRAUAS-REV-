@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Laporan_peminjaman" language="groovy" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="cfbece2b-e18e-45e2-ad9e-ebd74552fd9d">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<queryString language="SQL">
+		<![CDATA[SELECT
+     anggota.`Nama` AS anggota_Nama,
+     detailpinjam.`KodeBuku` AS buku_KodeBuku,
+     buku.`Judul` AS buku_Judul,
+     buku.`Pengarang` AS buku_Pengarang,
+     buku.`Penerbit` AS buku_Penerbit,
+     buku.`TahunTerbit` AS buku_TahunTerbit,
+     pinjam.`NoPinjam` AS pinjam_NoPinjam,
+     pinjam.`TglPinjam` AS pinjam_TglPinjam,
+     pinjam.`NoAnggota` AS pinjam_NoAnggota,
+     detailpinjam.`Status` AS detailpinjam_Status
+FROM
+     (((`buku` buku INNER JOIN `detailpinjam` detailpinjam ON buku.`KodeBuku` = detailpinjam.`KodeBuku`)
+     INNER JOIN `pinjam` pinjam ON detailpinjam.`NoPinjam` = pinjam.`NoPinjam`)
+     INNER JOIN `anggota` anggota ON pinjam.`NoAnggota` = anggota.`NoAnggota`)
+GROUP BY
+     pinjam.NoPinjam,
+     pinjam.`TglPinjam`,
+     pinjam.`NoAnggota`,
+     anggota.`Nama`,
+     buku.`Judul`,
+     detailpinjam.`KodeBuku`,
+     detailpinjam.`Status`,
+     buku.Pengarang,
+    buku.Penerbit,
+buku.TahunTerbit]]>
+	</queryString>
+	<field name="anggota_Nama" class="java.lang.String"/>
+	<field name="buku_KodeBuku" class="java.lang.String"/>
+	<field name="buku_Judul" class="java.lang.String"/>
+	<field name="buku_Pengarang" class="java.lang.String"/>
+	<field name="buku_Penerbit" class="java.lang.String"/>
+	<field name="buku_TahunTerbit" class="java.lang.String"/>
+	<field name="pinjam_NoPinjam" class="java.lang.String"/>
+	<field name="pinjam_TglPinjam" class="java.sql.Timestamp"/>
+	<field name="pinjam_NoAnggota" class="java.lang.String"/>
+	<field name="detailpinjam_Status" class="java.lang.String"/>
+	<group name="pinjam_NoPinjam">
+		<groupExpression><![CDATA[$F{pinjam_NoPinjam}]]></groupExpression>
+		<groupHeader>
+			<band height="110">
+				<staticText>
+					<reportElement x="5" y="20" width="125" height="25" forecolor="#009900" uuid="75dbadf6-fe63-4190-9710-e33ae0569385"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Inconsolata" size="16" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nomor Pinjam]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="5" y="45" width="125" height="25" forecolor="#009900" uuid="af346bf7-9c30-4ff1-b637-050f7808746a"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Inconsolata" size="16" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Tanggal Pinjam]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="285" y="20" width="120" height="25" forecolor="#009900" uuid="8226a51a-67ce-4271-b265-fbcbfbca9ecf"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Inconsolata" size="16" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nomor Anggota]]></text>
+				</staticText>
+				<staticText>
+					<reportElement x="285" y="45" width="120" height="25" forecolor="#009900" uuid="fce217f7-4e5c-4cc1-8598-f5ee1b7117ab"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Inconsolata" size="16" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Nama]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="40" y="85" width="120" height="25" forecolor="#009900" backcolor="#CCCCCC" uuid="6a418926-661b-47e3-a1ef-acfe84505591"/>
+					<box leftPadding="2">
+						<topPen lineWidth="0.5" lineColor="#009900"/>
+						<leftPen lineWidth="0.5" lineColor="#009900"/>
+						<bottomPen lineWidth="0.5" lineColor="#009900"/>
+						<rightPen lineWidth="0.5" lineColor="#009900"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Inconsolata" size="16" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Kode Buku]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="160" y="85" width="275" height="25" forecolor="#009900" backcolor="#CCCCCC" uuid="a156486b-962b-4558-9bb5-4e423c49b8bf"/>
+					<box leftPadding="2">
+						<topPen lineWidth="0.5" lineColor="#009900"/>
+						<leftPen lineWidth="0.5" lineColor="#009900"/>
+						<bottomPen lineWidth="0.5" lineColor="#009900"/>
+						<rightPen lineWidth="0.5" lineColor="#009900"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Inconsolata" size="16" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Judul Buku]]></text>
+				</staticText>
+				<staticText>
+					<reportElement mode="Opaque" x="435" y="85" width="120" height="25" forecolor="#009900" backcolor="#CCCCCC" uuid="09c26325-219c-48a7-a549-03599e70d379"/>
+					<box leftPadding="2">
+						<topPen lineWidth="0.5" lineColor="#009900"/>
+						<leftPen lineWidth="0.5" lineColor="#009900"/>
+						<bottomPen lineWidth="0.5" lineColor="#009900"/>
+						<rightPen lineWidth="0.5" lineColor="#009900"/>
+					</box>
+					<textElement textAlignment="Center" verticalAlignment="Middle">
+						<font fontName="Inconsolata" size="16" isBold="true"/>
+					</textElement>
+					<text><![CDATA[Status]]></text>
+				</staticText>
+				<textField>
+					<reportElement x="129" y="20" width="150" height="25" uuid="8dc55f6c-f6e9-4263-bdf3-bef98dd93480"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Inconsolata" size="13"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{pinjam_NoPinjam}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="129" y="45" width="150" height="25" uuid="55d4e717-fb0c-415d-a2c5-960988c586a0"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Inconsolata" size="13"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{pinjam_TglPinjam}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="405" y="20" width="150" height="25" uuid="0cc0a7a3-8781-45a9-8a1b-f817532b1a69"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Inconsolata" size="13"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{pinjam_NoAnggota}]]></textFieldExpression>
+				</textField>
+				<textField>
+					<reportElement x="405" y="45" width="150" height="25" uuid="f75b76d9-77f2-4494-a0e7-466e07d56c10"/>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Inconsolata" size="13"/>
+					</textElement>
+					<textFieldExpression><![CDATA[$F{anggota_Nama}]]></textFieldExpression>
+				</textField>
+				<staticText>
+					<reportElement mode="Opaque" x="10" y="85" width="30" height="25" forecolor="#009900" backcolor="#CCCCCC" uuid="3526da0e-16a0-48b6-ac6f-1d4d9c201455"/>
+					<box leftPadding="2">
+						<topPen lineWidth="0.5" lineColor="#009900"/>
+						<leftPen lineWidth="0.5" lineColor="#009900"/>
+						<bottomPen lineWidth="0.5" lineColor="#009900"/>
+						<rightPen lineWidth="0.5" lineColor="#009900"/>
+					</box>
+					<textElement verticalAlignment="Middle">
+						<font fontName="Inconsolata" size="16" isBold="true"/>
+					</textElement>
+					<text><![CDATA[No.]]></text>
+				</staticText>
+				<line>
+					<reportElement x="0" y="10" width="250" height="1" forecolor="#999999" uuid="d650b810-1c7a-490e-bbc6-bfcacb55df82"/>
+				</line>
+				<line>
+					<reportElement x="305" y="9" width="250" height="1" forecolor="#999999" uuid="ed80b13d-a014-4250-aa7c-15f498636eb8"/>
+				</line>
+				<staticText>
+					<reportElement x="228" y="0" width="100" height="15" forecolor="#999999" uuid="71d1fe42-ba0b-4a33-8794-2aebc5f077e2"/>
+					<textElement textAlignment="Center" verticalAlignment="Middle"/>
+					<text><![CDATA[- - - - - - -]]></text>
+				</staticText>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="20"/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="79" splitType="Stretch">
+			<rectangle>
+				<reportElement x="-29" y="-38" width="623" height="117" backcolor="#66FF66" uuid="c5838924-32f0-421b-a1c1-5b43c7971bac"/>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<staticText>
+				<reportElement x="15" y="31" width="236" height="48" forecolor="#FFFFFF" uuid="3ddc036f-e7b3-4b45-b293-e6c4b7aef65e"/>
+				<textElement>
+					<font fontName="Inconsolata" size="32" isBold="true"/>
+				</textElement>
+				<text><![CDATA[PERPUSTAKAAN]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="41" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="10" width="236" height="25" forecolor="#000000" uuid="c0745664-74e5-4f58-bb5b-4f4f023bcde5"/>
+				<textElement>
+					<font fontName="Inconsolata" size="20" isBold="false"/>
+				</textElement>
+				<text><![CDATA[LAPORAN PEMINJAMAN]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="405" y="15" width="110" height="20" uuid="575e7a37-edb4-4fe5-aedb-5e974f2b8c2c"/>
+				<textElement textAlignment="Right">
+					<font fontName="Inconsolata" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Halaman "+$V{PAGE_NUMBER}+" dari"]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="515" y="15" width="40" height="20" uuid="e515abb0-06d4-45c8-bd37-aa3e9284ad9d"/>
+				<textElement>
+					<font fontName="Inconsolata" size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[" " + $V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="25" splitType="Stretch">
+			<textField>
+				<reportElement x="40" y="0" width="120" height="25" uuid="42cfa653-f661-4870-a443-b67c9a21c04d"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.5" lineColor="#009900"/>
+					<leftPen lineWidth="0.5" lineColor="#009900"/>
+					<bottomPen lineWidth="0.5" lineColor="#009900"/>
+					<rightPen lineWidth="0.5" lineColor="#009900"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Inconsolata" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{buku_KodeBuku}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="0" width="275" height="25" uuid="d17eae83-fcdd-4673-9be2-9f01bc9b946d"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.5" lineColor="#009900"/>
+					<leftPen lineWidth="0.5" lineColor="#009900"/>
+					<bottomPen lineWidth="0.5" lineColor="#009900"/>
+					<rightPen lineWidth="0.5" lineColor="#009900"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Inconsolata" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{buku_Judul}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="435" y="0" width="120" height="25" uuid="3c97efc7-ce4d-4d15-84ed-edd0910faf6d"/>
+				<box leftPadding="2">
+					<topPen lineWidth="0.5" lineColor="#009900"/>
+					<leftPen lineWidth="0.5" lineColor="#009900"/>
+					<bottomPen lineWidth="0.5" lineColor="#009900"/>
+					<rightPen lineWidth="0.5" lineColor="#009900"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="Inconsolata" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{detailpinjam_Status}.equals("0") ? "Belum Kembali" : "Sudah Kembali")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="10" y="0" width="30" height="25" uuid="ac38bfb0-885f-46d4-a6bf-f37334581647"/>
+				<box leftPadding="4">
+					<topPen lineWidth="0.5" lineColor="#009900"/>
+					<leftPen lineWidth="0.5" lineColor="#009900"/>
+					<bottomPen lineWidth="0.5" lineColor="#009900"/>
+					<rightPen lineWidth="0.5" lineColor="#009900"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Inconsolata" size="13"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{pinjam_NoPinjam_COUNT} + "."]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<columnFooter>
+		<band height="45" splitType="Stretch"/>
+	</columnFooter>
+	<pageFooter>
+		<band height="54" splitType="Stretch"/>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
